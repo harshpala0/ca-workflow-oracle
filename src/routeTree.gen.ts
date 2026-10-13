@@ -14,10 +14,13 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as AuthenticatedClientsRouteImport } from './routes/_authenticated/clients'
+import { Route as AuthenticatedComplianceRouteImport } from './routes/_authenticated/compliance'
 import { Route as AuthenticatedDocumentsRouteImport } from './routes/_authenticated/documents'
 import { Route as AuthenticatedEngagementsRouteImport } from './routes/_authenticated/engagements'
 import { Route as AuthenticatedInvoicesRouteImport } from './routes/_authenticated/invoices'
 import { Route as AuthenticatedQueriesRouteImport } from './routes/_authenticated/queries'
+import { Route as AuthenticatedReceivablesRouteImport } from './routes/_authenticated/receivables'
+import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedTasksRouteImport } from './routes/_authenticated/tasks'
 import { Route as AuthenticatedTimesheetsRouteImport } from './routes/_authenticated/timesheets'
 
@@ -45,6 +48,11 @@ const AuthenticatedClientsRoute = AuthenticatedClientsRouteImport.update({
   path: '/clients',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedComplianceRoute = AuthenticatedComplianceRouteImport.update({
+  id: '/compliance',
+  path: '/compliance',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedDocumentsRoute = AuthenticatedDocumentsRouteImport.update({
   id: '/documents',
   path: '/documents',
@@ -66,6 +74,17 @@ const AuthenticatedQueriesRoute = AuthenticatedQueriesRouteImport.update({
   path: '/queries',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedReceivablesRoute =
+  AuthenticatedReceivablesRouteImport.update({
+    id: '/receivables',
+    path: '/receivables',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedTasksRoute = AuthenticatedTasksRouteImport.update({
   id: '/tasks',
   path: '/tasks',
@@ -82,10 +101,13 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
   '/clients': typeof AuthenticatedClientsRoute
+  '/compliance': typeof AuthenticatedComplianceRoute
   '/documents': typeof AuthenticatedDocumentsRoute
   '/engagements': typeof AuthenticatedEngagementsRoute
   '/invoices': typeof AuthenticatedInvoicesRoute
   '/queries': typeof AuthenticatedQueriesRoute
+  '/receivables': typeof AuthenticatedReceivablesRoute
+  '/settings': typeof AuthenticatedSettingsRoute
   '/tasks': typeof AuthenticatedTasksRoute
   '/timesheets': typeof AuthenticatedTimesheetsRoute
 }
@@ -94,10 +116,13 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
   '/clients': typeof AuthenticatedClientsRoute
+  '/compliance': typeof AuthenticatedComplianceRoute
   '/documents': typeof AuthenticatedDocumentsRoute
   '/engagements': typeof AuthenticatedEngagementsRoute
   '/invoices': typeof AuthenticatedInvoicesRoute
   '/queries': typeof AuthenticatedQueriesRoute
+  '/receivables': typeof AuthenticatedReceivablesRoute
+  '/settings': typeof AuthenticatedSettingsRoute
   '/tasks': typeof AuthenticatedTasksRoute
   '/timesheets': typeof AuthenticatedTimesheetsRoute
 }
@@ -108,10 +133,13 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
   '/_authenticated/clients': typeof AuthenticatedClientsRoute
+  '/_authenticated/compliance': typeof AuthenticatedComplianceRoute
   '/_authenticated/documents': typeof AuthenticatedDocumentsRoute
   '/_authenticated/engagements': typeof AuthenticatedEngagementsRoute
   '/_authenticated/invoices': typeof AuthenticatedInvoicesRoute
   '/_authenticated/queries': typeof AuthenticatedQueriesRoute
+  '/_authenticated/receivables': typeof AuthenticatedReceivablesRoute
+  '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/tasks': typeof AuthenticatedTasksRoute
   '/_authenticated/timesheets': typeof AuthenticatedTimesheetsRoute
 }
@@ -122,10 +150,13 @@ export interface FileRouteTypes {
     | '/auth'
     | '/reset-password'
     | '/clients'
+    | '/compliance'
     | '/documents'
     | '/engagements'
     | '/invoices'
     | '/queries'
+    | '/receivables'
+    | '/settings'
     | '/tasks'
     | '/timesheets'
   fileRoutesByTo: FileRoutesByTo
@@ -134,10 +165,13 @@ export interface FileRouteTypes {
     | '/auth'
     | '/reset-password'
     | '/clients'
+    | '/compliance'
     | '/documents'
     | '/engagements'
     | '/invoices'
     | '/queries'
+    | '/receivables'
+    | '/settings'
     | '/tasks'
     | '/timesheets'
   id:
@@ -147,10 +181,13 @@ export interface FileRouteTypes {
     | '/auth'
     | '/reset-password'
     | '/_authenticated/clients'
+    | '/_authenticated/compliance'
     | '/_authenticated/documents'
     | '/_authenticated/engagements'
     | '/_authenticated/invoices'
     | '/_authenticated/queries'
+    | '/_authenticated/receivables'
+    | '/_authenticated/settings'
     | '/_authenticated/tasks'
     | '/_authenticated/timesheets'
   fileRoutesById: FileRoutesById
@@ -199,6 +236,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedClientsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/compliance': {
+      id: '/_authenticated/compliance'
+      path: '/compliance'
+      fullPath: '/compliance'
+      preLoaderRoute: typeof AuthenticatedComplianceRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/documents': {
       id: '/_authenticated/documents'
       path: '/documents'
@@ -227,6 +271,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedQueriesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/receivables': {
+      id: '/_authenticated/receivables'
+      path: '/receivables'
+      fullPath: '/receivables'
+      preLoaderRoute: typeof AuthenticatedReceivablesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/settings': {
+      id: '/_authenticated/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/tasks': {
       id: '/_authenticated/tasks'
       path: '/tasks'
@@ -246,20 +304,26 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedClientsRoute: typeof AuthenticatedClientsRoute
+  AuthenticatedComplianceRoute: typeof AuthenticatedComplianceRoute
   AuthenticatedDocumentsRoute: typeof AuthenticatedDocumentsRoute
   AuthenticatedEngagementsRoute: typeof AuthenticatedEngagementsRoute
   AuthenticatedInvoicesRoute: typeof AuthenticatedInvoicesRoute
   AuthenticatedQueriesRoute: typeof AuthenticatedQueriesRoute
+  AuthenticatedReceivablesRoute: typeof AuthenticatedReceivablesRoute
+  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedTasksRoute: typeof AuthenticatedTasksRoute
   AuthenticatedTimesheetsRoute: typeof AuthenticatedTimesheetsRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedClientsRoute: AuthenticatedClientsRoute,
+  AuthenticatedComplianceRoute: AuthenticatedComplianceRoute,
   AuthenticatedDocumentsRoute: AuthenticatedDocumentsRoute,
   AuthenticatedEngagementsRoute: AuthenticatedEngagementsRoute,
   AuthenticatedInvoicesRoute: AuthenticatedInvoicesRoute,
   AuthenticatedQueriesRoute: AuthenticatedQueriesRoute,
+  AuthenticatedReceivablesRoute: AuthenticatedReceivablesRoute,
+  AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedTasksRoute: AuthenticatedTasksRoute,
   AuthenticatedTimesheetsRoute: AuthenticatedTimesheetsRoute,
 }
