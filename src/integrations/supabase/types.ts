@@ -634,6 +634,13 @@ export type Database = {
         }
         Relationships: [
           {
+            foreignKeyName: "tasks_assignee_fk"
+            columns: ["assignee_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "tasks_engagement_id_fkey"
             columns: ["engagement_id"]
             isOneToOne: false
@@ -693,6 +700,13 @@ export type Database = {
             columns: ["task_id"]
             isOneToOne: false
             referencedRelation: "tasks"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "time_logs_user_fk"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
         ]
