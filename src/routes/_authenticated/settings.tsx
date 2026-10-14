@@ -56,7 +56,7 @@ function Settings() {
             onSubmit={async (e) => {
               e.preventDefault();
               const { error } = await supabase.from("firms").update({ name: firm }).eq("id", me.firm_id);
-              if (error) return toast.error(error.message);
+              if (error) { toast.error(error.message); return; }
               toast.success("Firm updated");
               qc.invalidateQueries({ queryKey: meQuery.queryKey });
             }}

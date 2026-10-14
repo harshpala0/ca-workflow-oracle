@@ -56,7 +56,7 @@ function Portal() {
 
   const respond = useMutation({
     mutationFn: async (id: string) => {
-      const { error } = await supabase.from("queries").update({ response: answers[id], status: "Responded", responded_by: me.id, responded_at: new Date().toISOString() }).eq("id", id);
+      const { error } = await supabase.from("queries").update({ response: answers[id] ?? null, status: "Responded", responded_by: me.id, responded_at: new Date().toISOString() }).eq("id", id);
       if (error) throw error;
     },
     onSuccess: () => { toast.success("Response sent"); qc.invalidateQueries({ queryKey: ["portal"] }); },
