@@ -49,9 +49,58 @@ export type Database = {
           },
         ]
       }
+      audit_papers: {
+        Row: {
+          client_info: Json
+          created_at: string
+          data: Json
+          engagement_id: string
+          firm_id: string
+          id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          client_info?: Json
+          created_at?: string
+          data?: Json
+          engagement_id: string
+          firm_id: string
+          id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          client_info?: Json
+          created_at?: string
+          data?: Json
+          engagement_id?: string
+          firm_id?: string
+          id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "audit_papers_engagement_id_fkey"
+            columns: ["engagement_id"]
+            isOneToOne: true
+            referencedRelation: "engagements"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "audit_papers_firm_id_fkey"
+            columns: ["firm_id"]
+            isOneToOne: false
+            referencedRelation: "firms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       clients: {
         Row: {
           address: string | null
+          compliance_packs: string[]
           contact_email: string | null
           contact_person: string | null
           contact_phone: string | null
@@ -67,6 +116,7 @@ export type Database = {
         }
         Insert: {
           address?: string | null
+          compliance_packs?: string[]
           contact_email?: string | null
           contact_person?: string | null
           contact_phone?: string | null
@@ -82,6 +132,7 @@ export type Database = {
         }
         Update: {
           address?: string | null
+          compliance_packs?: string[]
           contact_email?: string | null
           contact_person?: string | null
           contact_phone?: string | null
@@ -346,19 +397,31 @@ export type Database = {
         Row: {
           created_at: string
           id: string
+          is_active: boolean
           name: string
+          notify_email: string | null
+          notify_from_name: string | null
+          notify_phone: string | null
           reg_no: string | null
         }
         Insert: {
           created_at?: string
           id?: string
+          is_active?: boolean
           name: string
+          notify_email?: string | null
+          notify_from_name?: string | null
+          notify_phone?: string | null
           reg_no?: string | null
         }
         Update: {
           created_at?: string
           id?: string
+          is_active?: boolean
           name?: string
+          notify_email?: string | null
+          notify_from_name?: string | null
+          notify_phone?: string | null
           reg_no?: string | null
         }
         Relationships: []
@@ -435,6 +498,54 @@ export type Database = {
           },
           {
             foreignKeyName: "invoices_firm_id_fkey"
+            columns: ["firm_id"]
+            isOneToOne: false
+            referencedRelation: "firms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      message_log: {
+        Row: {
+          body: string
+          channel: string
+          client_id: string | null
+          created_at: string
+          firm_id: string
+          id: string
+          sent_by: string | null
+          subject: string | null
+        }
+        Insert: {
+          body: string
+          channel: string
+          client_id?: string | null
+          created_at?: string
+          firm_id: string
+          id?: string
+          sent_by?: string | null
+          subject?: string | null
+        }
+        Update: {
+          body?: string
+          channel?: string
+          client_id?: string | null
+          created_at?: string
+          firm_id?: string
+          id?: string
+          sent_by?: string | null
+          subject?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "message_log_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "message_log_firm_id_fkey"
             columns: ["firm_id"]
             isOneToOne: false
             referencedRelation: "firms"
@@ -590,6 +701,7 @@ export type Database = {
         Row: {
           area: string | null
           assignee_id: string | null
+          compliance_item_id: string | null
           created_at: string
           created_by: string | null
           description: string | null
@@ -605,6 +717,7 @@ export type Database = {
         Insert: {
           area?: string | null
           assignee_id?: string | null
+          compliance_item_id?: string | null
           created_at?: string
           created_by?: string | null
           description?: string | null
@@ -620,6 +733,7 @@ export type Database = {
         Update: {
           area?: string | null
           assignee_id?: string | null
+          compliance_item_id?: string | null
           created_at?: string
           created_by?: string | null
           description?: string | null
@@ -638,6 +752,13 @@ export type Database = {
             columns: ["assignee_id"]
             isOneToOne: false
             referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tasks_compliance_item_id_fkey"
+            columns: ["compliance_item_id"]
+            isOneToOne: false
+            referencedRelation: "compliance_items"
             referencedColumns: ["id"]
           },
           {
@@ -747,7 +868,7 @@ export type Database = {
       my_firm_id: { Args: never; Returns: string }
     }
     Enums: {
-      app_role: "admin" | "team_leader" | "member" | "client"
+      app_role: "admin" | "team_leader" | "member" | "client" | "super_admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -875,7 +996,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "team_leader", "member", "client"],
+      app_role: ["admin", "team_leader", "member", "client", "super_admin"],
     },
   },
 } as const
