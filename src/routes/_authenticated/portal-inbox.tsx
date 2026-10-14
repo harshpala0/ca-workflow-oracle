@@ -16,7 +16,7 @@ export const Route = createFileRoute("/_authenticated/portal-inbox")({
 
 export async function openFile(path: string) {
   const { data, error } = await supabase.storage.from("portal-files").createSignedUrl(path, 120);
-  if (error || !data) return toast.error(error?.message ?? "Could not open file");
+  if (error || !data) { toast.error(error?.message ?? "Could not open file"); return; }
   window.open(data.signedUrl, "_blank");
 }
 
