@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { CalendarPlus, Check } from "lucide-react";
+import { CalendarPlus, Check, ClipboardPlus, Users } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { ResourcePage } from "@/components/resource-page";
@@ -47,6 +47,47 @@ function Compliance() {
     onError: (e: Error) => toast.error(e.message),
   });
 
+  const genAll = useMutation({
+    mutationFn: async () => {
+      const ids = (clients.data ?? []).map((c) => c.id);
+      if (ids.length === 0) throw new Error("No clients yet");
+      const drafts = generateCompliance(fy, packs);
+      const { data: existing } = await supabase.from("compliance_items").select("client_id, title, due_date").in("client_id", ids);
+      const have = new Set((existing ?? []).map((e) => `${e.client_id}|${e.title}|${e.due_date}`));
+      const rows = ids.flatMap((cid) => drafts.map((d) => ({ ...d, client_id: cid, firm_id: me.firm_id }))).filter((r) => !have.has(`${r.client_id}|${r.title}|${r.due_date}`));
+      if (rows.length === 0) return 0;
+      const { error } = await supabase.from("compliance_items").insert(rows);
+      if (error) throw error;
+      return rows.length;
+    },
+    onSuccess: (n) => { toast.success(`${n} due dates added for all clients`); setOpen(false); qc.invalidateQueries({ queryKey: ["compliance_items"] }); },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
+  const markMissed = useMutation({
+    mutationFn: async () => {
+      const { data, error } = await supabase.from("compliance_items").update({ status: "Missed" }).eq("status", "Pending").lt("due_date", today()).select("id");
+      if (error) throw error;
+      return data?.length ?? 0;
+    },
+    onSuccess: (n) => { toast.success(`${n} overdue items marked as Missed`); qc.invalidateQueries({ queryKey: ["compliance_items"] }); },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
+  const makeTask = useMutation({
+    mutationFn: async (r: Record<string, string>) => {
+      const { data: dup } = await supabase.from("tasks").select("id").eq("compliance_item_id", r["id"]!).maybeSingle();
+      if (dup) throw new Error("A task already exists for this item");
+      const { error } = await supabase.from("tasks").insert({
+        firm_id: me.firm_id, title: `${r["title"]} — ${r["clients"] ? (r["clients"] as unknown as { name: string }).name : ""}`.trim(),
+        due_date: r["due_date"]!, compliance_item_id: r["id"]!, status: "Pending", priority: "Medium", area: r["category"]!, created_by: me.id,
+      });
+      if (error) throw error;
+    },
+    onSuccess: () => { toast.success("Task created"); qc.invalidateQueries({ queryKey: ["tasks"] }); },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
   const markFiled = useMutation({
     mutationFn: async (id: string) => {
       const { error } = await supabase.from("compliance_items").update({ status: "Filed", filed_on: today() }).eq("id", id);
@@ -66,9 +107,15 @@ function Compliance() {
         ascending
         searchKeys={["title", "category", "clients.name"]}
         filters={{ key: "category", options: COMPLIANCE_PACKS }}
-        headerExtra={<Button variant="outline" onClick={() => setOpen(true)}><CalendarPlus className="size-4" /> Generate for client</Button>}
+        headerExtra={<>
+          <Button variant="outline" disabled={markMissed.isPending} onClick={() => markMissed.mutate()}>Mark overdue as Missed</Button>
+          <Button variant="outline" onClick={() => setOpen(true)}><CalendarPlus className="size-4" /> Generate calendar</Button>
+        </>}
         rowActions={(r) => r["status"] === "Pending" ? (
-          <Button size="sm" variant="ghost" onClick={() => markFiled.mutate(r["id"])}><Check className="size-4" /> Filed</Button>
+          <>
+            <Button size="sm" variant="ghost" onClick={() => makeTask.mutate(r as Record<string, string>)}><ClipboardPlus className="size-4" /> Task</Button>
+            <Button size="sm" variant="ghost" onClick={() => markFiled.mutate(r["id"])}><Check className="size-4" /> Filed</Button>
+          </>
         ) : null}
         fields={[
           { name: "title", label: "Compliance", required: true, full: true },
@@ -116,7 +163,10 @@ function Compliance() {
               </div>
             </div>
           </div>
-          <DialogFooter>
+          <DialogFooter className="gap-2">
+            <Button variant="outline" disabled={packs.length === 0 || genAll.isPending} onClick={() => genAll.mutate()}>
+              <Users className="size-4" /> {genAll.isPending ? "Generating…" : "All clients"}
+            </Button>
             <Button disabled={!clientId || packs.length === 0 || gen.isPending} onClick={() => gen.mutate()}>
               {gen.isPending ? "Generating…" : `Generate ${generateCompliance(fy, packs).length} due dates`}
             </Button>

@@ -20,6 +20,7 @@ import { Route as AuthenticatedDashboardRouteImport } from './routes/_authentica
 import { Route as AuthenticatedDocumentsRouteImport } from './routes/_authenticated/documents'
 import { Route as AuthenticatedEngagementsRouteImport } from './routes/_authenticated/engagements'
 import { Route as AuthenticatedInvoicesRouteImport } from './routes/_authenticated/invoices'
+import { Route as AuthenticatedMessagesRouteImport } from './routes/_authenticated/messages'
 import { Route as AuthenticatedPortalRouteImport } from './routes/_authenticated/portal'
 import { Route as AuthenticatedPortalInboxRouteImport } from './routes/_authenticated/portal-inbox'
 import { Route as AuthenticatedQueriesRouteImport } from './routes/_authenticated/queries'
@@ -85,6 +86,11 @@ const AuthenticatedInvoicesRoute = AuthenticatedInvoicesRouteImport.update({
   path: '/invoices',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedMessagesRoute = AuthenticatedMessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedPortalRoute = AuthenticatedPortalRouteImport.update({
   id: '/portal',
   path: '/portal',
@@ -139,6 +145,7 @@ export interface FileRoutesByFullPath {
   '/documents': typeof AuthenticatedDocumentsRoute
   '/engagements': typeof AuthenticatedEngagementsRoute
   '/invoices': typeof AuthenticatedInvoicesRoute
+  '/messages': typeof AuthenticatedMessagesRoute
   '/portal': typeof AuthenticatedPortalRoute
   '/portal-inbox': typeof AuthenticatedPortalInboxRoute
   '/queries': typeof AuthenticatedQueriesRoute
@@ -159,6 +166,7 @@ export interface FileRoutesByTo {
   '/documents': typeof AuthenticatedDocumentsRoute
   '/engagements': typeof AuthenticatedEngagementsRoute
   '/invoices': typeof AuthenticatedInvoicesRoute
+  '/messages': typeof AuthenticatedMessagesRoute
   '/portal': typeof AuthenticatedPortalRoute
   '/portal-inbox': typeof AuthenticatedPortalInboxRoute
   '/queries': typeof AuthenticatedQueriesRoute
@@ -181,6 +189,7 @@ export interface FileRoutesById {
   '/_authenticated/documents': typeof AuthenticatedDocumentsRoute
   '/_authenticated/engagements': typeof AuthenticatedEngagementsRoute
   '/_authenticated/invoices': typeof AuthenticatedInvoicesRoute
+  '/_authenticated/messages': typeof AuthenticatedMessagesRoute
   '/_authenticated/portal': typeof AuthenticatedPortalRoute
   '/_authenticated/portal-inbox': typeof AuthenticatedPortalInboxRoute
   '/_authenticated/queries': typeof AuthenticatedQueriesRoute
@@ -203,6 +212,7 @@ export interface FileRouteTypes {
     | '/documents'
     | '/engagements'
     | '/invoices'
+    | '/messages'
     | '/portal'
     | '/portal-inbox'
     | '/queries'
@@ -223,6 +233,7 @@ export interface FileRouteTypes {
     | '/documents'
     | '/engagements'
     | '/invoices'
+    | '/messages'
     | '/portal'
     | '/portal-inbox'
     | '/queries'
@@ -244,6 +255,7 @@ export interface FileRouteTypes {
     | '/_authenticated/documents'
     | '/_authenticated/engagements'
     | '/_authenticated/invoices'
+    | '/_authenticated/messages'
     | '/_authenticated/portal'
     | '/_authenticated/portal-inbox'
     | '/_authenticated/queries'
@@ -340,6 +352,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedInvoicesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/messages': {
+      id: '/_authenticated/messages'
+      path: '/messages'
+      fullPath: '/messages'
+      preLoaderRoute: typeof AuthenticatedMessagesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/portal': {
       id: '/_authenticated/portal'
       path: '/portal'
@@ -407,6 +426,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDocumentsRoute: typeof AuthenticatedDocumentsRoute
   AuthenticatedEngagementsRoute: typeof AuthenticatedEngagementsRoute
   AuthenticatedInvoicesRoute: typeof AuthenticatedInvoicesRoute
+  AuthenticatedMessagesRoute: typeof AuthenticatedMessagesRoute
   AuthenticatedPortalRoute: typeof AuthenticatedPortalRoute
   AuthenticatedPortalInboxRoute: typeof AuthenticatedPortalInboxRoute
   AuthenticatedQueriesRoute: typeof AuthenticatedQueriesRoute
@@ -425,6 +445,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDocumentsRoute: AuthenticatedDocumentsRoute,
   AuthenticatedEngagementsRoute: AuthenticatedEngagementsRoute,
   AuthenticatedInvoicesRoute: AuthenticatedInvoicesRoute,
+  AuthenticatedMessagesRoute: AuthenticatedMessagesRoute,
   AuthenticatedPortalRoute: AuthenticatedPortalRoute,
   AuthenticatedPortalInboxRoute: AuthenticatedPortalInboxRoute,
   AuthenticatedQueriesRoute: AuthenticatedQueriesRoute,
