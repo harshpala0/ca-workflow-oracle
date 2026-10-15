@@ -21,6 +21,7 @@ import { Route as AuthenticatedDocumentsRouteImport } from './routes/_authentica
 import { Route as AuthenticatedEngagementsRouteImport } from './routes/_authenticated/engagements'
 import { Route as AuthenticatedInvoicesRouteImport } from './routes/_authenticated/invoices'
 import { Route as AuthenticatedMessagesRouteImport } from './routes/_authenticated/messages'
+import { Route as AuthenticatedPlatformRouteImport } from './routes/_authenticated/platform'
 import { Route as AuthenticatedPortalRouteImport } from './routes/_authenticated/portal'
 import { Route as AuthenticatedPortalInboxRouteImport } from './routes/_authenticated/portal-inbox'
 import { Route as AuthenticatedQueriesRouteImport } from './routes/_authenticated/queries'
@@ -91,6 +92,11 @@ const AuthenticatedMessagesRoute = AuthenticatedMessagesRouteImport.update({
   path: '/messages',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedPlatformRoute = AuthenticatedPlatformRouteImport.update({
+  id: '/platform',
+  path: '/platform',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedPortalRoute = AuthenticatedPortalRouteImport.update({
   id: '/portal',
   path: '/portal',
@@ -146,6 +152,7 @@ export interface FileRoutesByFullPath {
   '/engagements': typeof AuthenticatedEngagementsRoute
   '/invoices': typeof AuthenticatedInvoicesRoute
   '/messages': typeof AuthenticatedMessagesRoute
+  '/platform': typeof AuthenticatedPlatformRoute
   '/portal': typeof AuthenticatedPortalRoute
   '/portal-inbox': typeof AuthenticatedPortalInboxRoute
   '/queries': typeof AuthenticatedQueriesRoute
@@ -167,6 +174,7 @@ export interface FileRoutesByTo {
   '/engagements': typeof AuthenticatedEngagementsRoute
   '/invoices': typeof AuthenticatedInvoicesRoute
   '/messages': typeof AuthenticatedMessagesRoute
+  '/platform': typeof AuthenticatedPlatformRoute
   '/portal': typeof AuthenticatedPortalRoute
   '/portal-inbox': typeof AuthenticatedPortalInboxRoute
   '/queries': typeof AuthenticatedQueriesRoute
@@ -190,6 +198,7 @@ export interface FileRoutesById {
   '/_authenticated/engagements': typeof AuthenticatedEngagementsRoute
   '/_authenticated/invoices': typeof AuthenticatedInvoicesRoute
   '/_authenticated/messages': typeof AuthenticatedMessagesRoute
+  '/_authenticated/platform': typeof AuthenticatedPlatformRoute
   '/_authenticated/portal': typeof AuthenticatedPortalRoute
   '/_authenticated/portal-inbox': typeof AuthenticatedPortalInboxRoute
   '/_authenticated/queries': typeof AuthenticatedQueriesRoute
@@ -213,6 +222,7 @@ export interface FileRouteTypes {
     | '/engagements'
     | '/invoices'
     | '/messages'
+    | '/platform'
     | '/portal'
     | '/portal-inbox'
     | '/queries'
@@ -234,6 +244,7 @@ export interface FileRouteTypes {
     | '/engagements'
     | '/invoices'
     | '/messages'
+    | '/platform'
     | '/portal'
     | '/portal-inbox'
     | '/queries'
@@ -256,6 +267,7 @@ export interface FileRouteTypes {
     | '/_authenticated/engagements'
     | '/_authenticated/invoices'
     | '/_authenticated/messages'
+    | '/_authenticated/platform'
     | '/_authenticated/portal'
     | '/_authenticated/portal-inbox'
     | '/_authenticated/queries'
@@ -359,6 +371,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMessagesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/platform': {
+      id: '/_authenticated/platform'
+      path: '/platform'
+      fullPath: '/platform'
+      preLoaderRoute: typeof AuthenticatedPlatformRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/portal': {
       id: '/_authenticated/portal'
       path: '/portal'
@@ -427,6 +446,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedEngagementsRoute: typeof AuthenticatedEngagementsRoute
   AuthenticatedInvoicesRoute: typeof AuthenticatedInvoicesRoute
   AuthenticatedMessagesRoute: typeof AuthenticatedMessagesRoute
+  AuthenticatedPlatformRoute: typeof AuthenticatedPlatformRoute
   AuthenticatedPortalRoute: typeof AuthenticatedPortalRoute
   AuthenticatedPortalInboxRoute: typeof AuthenticatedPortalInboxRoute
   AuthenticatedQueriesRoute: typeof AuthenticatedQueriesRoute
@@ -446,6 +466,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedEngagementsRoute: AuthenticatedEngagementsRoute,
   AuthenticatedInvoicesRoute: AuthenticatedInvoicesRoute,
   AuthenticatedMessagesRoute: AuthenticatedMessagesRoute,
+  AuthenticatedPlatformRoute: AuthenticatedPlatformRoute,
   AuthenticatedPortalRoute: AuthenticatedPortalRoute,
   AuthenticatedPortalInboxRoute: AuthenticatedPortalInboxRoute,
   AuthenticatedQueriesRoute: AuthenticatedQueriesRoute,
