@@ -29,6 +29,13 @@
       "when": 1791950420315,
       "tag": "0003_ported_modules_schema",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1792030574885,
+      "tag": "0004_suspended_firms_blocked",
+      "breakpoints": true
     }
   ]
 }
