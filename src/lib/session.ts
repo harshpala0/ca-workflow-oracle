@@ -1,7 +1,7 @@
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
-export type Role = "admin" | "team_leader" | "member" | "client";
+export type Role = "admin" | "team_leader" | "member" | "client" | "super_admin";
 
 export interface Me {
   id: string;
@@ -14,6 +14,7 @@ export interface Me {
   isStaff: boolean;
   isManager: boolean;
   isAdmin: boolean;
+  isSuperAdmin: boolean;
 }
 
 export const meQuery = queryOptions({
@@ -35,9 +36,10 @@ export const meQuery = queryOptions({
       firm_name: (profile as { firms?: { name: string } | null }).firms?.name ?? "Firm",
       client_id: profile.client_id,
       roles: r,
-      isStaff: r.some((x) => x !== "client"),
+      isStaff: r.some((x) => x !== "client" && x !== "super_admin"),
       isManager: r.includes("admin") || r.includes("team_leader"),
       isAdmin: r.includes("admin"),
+      isSuperAdmin: r.includes("super_admin"),
     };
   },
   staleTime: 60_000,
