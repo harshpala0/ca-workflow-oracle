@@ -3,7 +3,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useState, type ComponentType } from "react";
 import {
   Bell, BookOpen, Briefcase, CalendarClock, ClipboardList, FileText, Inbox, LayoutDashboard, LogOut, Menu,
-  MessageSquareQuote, Receipt, Settings, Timer, Users, Wallet, X,
+  MessageSquareQuote, Receipt, Settings, Timer, Users, Wallet, X, ScrollText, Send, BarChart3, ShieldCheck,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useMe } from "@/lib/session";
@@ -18,17 +18,20 @@ const staffNav: { group: string; items: Item[] }[] = [
     { to: "/engagements", label: "Engagements", icon: Briefcase },
     { to: "/tasks", label: "Tasks", icon: ClipboardList },
     { to: "/queries", label: "Queries", icon: MessageSquareQuote },
+    { to: "/audit-papers", label: "Audit working papers", icon: ScrollText },
   ]},
   { group: "Compliance", items: [
     { to: "/compliance", label: "Statute calendar", icon: CalendarClock },
     { to: "/reminders", label: "Reminders", icon: Bell },
     { to: "/documents", label: "Document register", icon: BookOpen },
     { to: "/portal-inbox", label: "Client requests", icon: Inbox },
+    { to: "/messages", label: "Messages & digest", icon: Send },
   ]},
   { group: "Finance", items: [
     { to: "/invoices", label: "Invoices", icon: Receipt, manager: true },
     { to: "/receivables", label: "Receivables", icon: Wallet, manager: true },
     { to: "/timesheets", label: "Timesheets", icon: Timer },
+    { to: "/insights", label: "Insight reports", icon: BarChart3, manager: true },
   ]},
   { group: "Firm", items: [{ to: "/settings", label: "Team & settings", icon: Settings }] },
 ];
@@ -42,7 +45,8 @@ export function AppShell() {
   const qc = useQueryClient();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const nav = me.isStaff ? staffNav : clientNav;
+  const base = me.isStaff ? staffNav : me.isSuperAdmin ? [] : clientNav;
+  const nav = me.isSuperAdmin ? [...base, { group: "Platform", items: [{ to: "/platform", label: "Platform control", icon: ShieldCheck }] }] : base;
 
   async function signOut() {
     await qc.cancelQueries();
