@@ -45,8 +45,8 @@ export function AppShell() {
   const qc = useQueryClient();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const base = me.isStaff ? staffNav : me.isSuperAdmin ? [] : clientNav;
-  const nav = me.isSuperAdmin ? [...base, { group: "Platform", items: [{ to: "/platform", label: "Platform control", icon: ShieldCheck }] }] : base;
+  const base: { group: string; items: Item[] }[] = me.isStaff ? staffNav : me.isSuperAdmin ? [] : clientNav;
+  const nav: { group: string; items: Item[] }[] = me.isSuperAdmin ? [...base, { group: "Platform", items: [{ to: "/platform", label: "Platform control", icon: ShieldCheck }] }] : base;
 
   async function signOut() {
     await qc.cancelQueries();

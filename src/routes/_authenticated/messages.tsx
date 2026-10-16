@@ -69,7 +69,7 @@ function Messages() {
 
   const sign = `\n\n— ${settings.notify_from_name || me.firm_name}`;
   const open = (url: string, client_id: string, channel: string) => {
-    if (!body.trim()) return toast.error("Write a message first");
+    if (!body.trim()) { toast.error("Write a message first"); return; }
     window.open(url, "_blank", "noopener");
     logSend.mutate({ client_id, channel });
   };
