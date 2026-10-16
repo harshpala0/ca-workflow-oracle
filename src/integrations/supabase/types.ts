@@ -213,6 +213,75 @@ export type Database = {
           },
         ]
       }
+      day_logs: {
+        Row: {
+          auditor_name: string | null
+          confirmed_at: string | null
+          confirmed_by: string | null
+          created_at: string
+          created_by: string | null
+          engagement_id: string
+          firm_id: string
+          id: string
+          is_confirmed: boolean
+          log_date: string
+          next_plan: string | null
+          observations: Json
+          pending_docs: Json
+          sampling: Json
+          work: Json
+        }
+        Insert: {
+          auditor_name?: string | null
+          confirmed_at?: string | null
+          confirmed_by?: string | null
+          created_at?: string
+          created_by?: string | null
+          engagement_id: string
+          firm_id: string
+          id?: string
+          is_confirmed?: boolean
+          log_date?: string
+          next_plan?: string | null
+          observations?: Json
+          pending_docs?: Json
+          sampling?: Json
+          work?: Json
+        }
+        Update: {
+          auditor_name?: string | null
+          confirmed_at?: string | null
+          confirmed_by?: string | null
+          created_at?: string
+          created_by?: string | null
+          engagement_id?: string
+          firm_id?: string
+          id?: string
+          is_confirmed?: boolean
+          log_date?: string
+          next_plan?: string | null
+          observations?: Json
+          pending_docs?: Json
+          sampling?: Json
+          work?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "day_logs_engagement_id_fkey"
+            columns: ["engagement_id"]
+            isOneToOne: false
+            referencedRelation: "engagements"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "day_logs_firm_id_fkey"
+            columns: ["firm_id"]
+            isOneToOne: false
+            referencedRelation: "firms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       doc_register: {
         Row: {
           client_id: string | null
