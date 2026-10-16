@@ -4,6 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Printer, Save } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import type { Json } from "@/integrations/supabase/types";
 import { useMe } from "@/lib/session";
 import { AUDIT_SECTIONS, type AuditField, type AuditSection } from "@/lib/audit-sections";
 import { PageHeader } from "@/components/ui-bits";
@@ -68,7 +69,7 @@ function AuditPapers() {
   const save = useMutation({
     mutationFn: async () => {
       const { error } = await supabase.from("audit_papers").upsert(
-        { firm_id: me.firm_id, engagement_id: engId, client_info: info, data, updated_by: me.id, updated_at: new Date().toISOString() },
+        { firm_id: me.firm_id, engagement_id: engId, client_info: info as unknown as Json, data: data as unknown as Json, updated_by: me.id, updated_at: new Date().toISOString() },
         { onConflict: "engagement_id" },
       );
       if (error) throw error;
