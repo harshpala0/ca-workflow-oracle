@@ -64,7 +64,7 @@ function Insights() {
       <PageHeader title="Insight reports" description="A practice overview — fees, compliance, workload and staff hours." />
       <div className="mb-6 grid gap-4 sm:grid-cols-4">
         <Stat label="Fees billed" value={inr(billed)} accent />
-        <Stat label="Collected" value={inr(received)} hint={billed ? `${Math.round((received / billed) * 100)}% of billed` : undefined} />
+        <Stat label="Collected" value={inr(received)} hint={billed ? `${Math.round((received / billed) * 100)}% of billed` : "—"} />
         <Stat label="Compliance filed" value={`${filed}/${data.comp.length}`} />
         <Stat label="Overdue filings" value={overdue} />
       </div>
