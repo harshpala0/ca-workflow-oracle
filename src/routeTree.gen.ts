@@ -31,6 +31,7 @@ import { Route as AuthenticatedRemindersRouteImport } from './routes/_authentica
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedTasksRouteImport } from './routes/_authenticated/tasks'
 import { Route as AuthenticatedTimesheetsRouteImport } from './routes/_authenticated/timesheets'
+import { Route as AuthenticatedEngagementIdRouteImport } from './routes/_authenticated/engagement.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -145,6 +146,12 @@ const AuthenticatedTimesheetsRoute = AuthenticatedTimesheetsRouteImport.update({
   path: '/timesheets',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedEngagementIdRoute =
+  AuthenticatedEngagementIdRouteImport.update({
+    id: '/engagement/$id',
+    path: '/engagement/$id',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -168,6 +175,7 @@ export interface FileRoutesByFullPath {
   '/settings': typeof AuthenticatedSettingsRoute
   '/tasks': typeof AuthenticatedTasksRoute
   '/timesheets': typeof AuthenticatedTimesheetsRoute
+  '/engagement/$id': typeof AuthenticatedEngagementIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -191,6 +199,7 @@ export interface FileRoutesByTo {
   '/settings': typeof AuthenticatedSettingsRoute
   '/tasks': typeof AuthenticatedTasksRoute
   '/timesheets': typeof AuthenticatedTimesheetsRoute
+  '/engagement/$id': typeof AuthenticatedEngagementIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -216,6 +225,7 @@ export interface FileRoutesById {
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/tasks': typeof AuthenticatedTasksRoute
   '/_authenticated/timesheets': typeof AuthenticatedTimesheetsRoute
+  '/_authenticated/engagement/$id': typeof AuthenticatedEngagementIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -241,6 +251,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/tasks'
     | '/timesheets'
+    | '/engagement/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -264,6 +275,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/tasks'
     | '/timesheets'
+    | '/engagement/$id'
   id:
     | '__root__'
     | '/'
@@ -288,6 +300,7 @@ export interface FileRouteTypes {
     | '/_authenticated/settings'
     | '/_authenticated/tasks'
     | '/_authenticated/timesheets'
+    | '/_authenticated/engagement/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -453,6 +466,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedTimesheetsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/engagement/$id': {
+      id: '/_authenticated/engagement/$id'
+      path: '/engagement/$id'
+      fullPath: '/engagement/$id'
+      preLoaderRoute: typeof AuthenticatedEngagementIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
@@ -475,6 +495,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedTasksRoute: typeof AuthenticatedTasksRoute
   AuthenticatedTimesheetsRoute: typeof AuthenticatedTimesheetsRoute
+  AuthenticatedEngagementIdRoute: typeof AuthenticatedEngagementIdRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -496,6 +517,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedTasksRoute: AuthenticatedTasksRoute,
   AuthenticatedTimesheetsRoute: AuthenticatedTimesheetsRoute,
+  AuthenticatedEngagementIdRoute: AuthenticatedEngagementIdRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
