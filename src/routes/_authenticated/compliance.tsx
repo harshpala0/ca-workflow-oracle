@@ -32,9 +32,15 @@ function Compliance() {
     queryFn: async () => (await supabase.from("clients").select("id, name").order("name")).data ?? [],
   });
 
+  const loadOverrides = async () => {
+    const label = `${fy}-${String((fy + 1) % 100).padStart(2, "0")}`;
+    const { data } = await supabase.from("compliance_due_overrides").select("event_key, due_date").eq("financial_year", label);
+    return Object.fromEntries((data ?? []).map((o) => [o.event_key, o.due_date]));
+  };
+
   const gen = useMutation({
     mutationFn: async () => {
-      const rows = generateCompliance(fy, packs).map((d) => ({ ...d, client_id: clientId, firm_id: me.firm_id }));
+      const rows = generateCompliance(fy, packs, await loadOverrides()).map((d) => ({ ...d, client_id: clientId, firm_id: me.firm_id }));
       const { error } = await supabase.from("compliance_items").insert(rows);
       if (error) throw error;
       return rows.length;
@@ -51,7 +57,7 @@ function Compliance() {
     mutationFn: async () => {
       const ids = (clients.data ?? []).map((c) => c.id);
       if (ids.length === 0) throw new Error("No clients yet");
-      const drafts = generateCompliance(fy, packs);
+      const drafts = generateCompliance(fy, packs, await loadOverrides());
       const { data: existing } = await supabase.from("compliance_items").select("client_id, title, due_date").in("client_id", ids);
       const have = new Set((existing ?? []).map((e) => `${e.client_id}|${e.title}|${e.due_date}`));
       const rows = ids.flatMap((cid) => drafts.map((d) => ({ ...d, client_id: cid, firm_id: me.firm_id }))).filter((r) => !have.has(`${r.client_id}|${r.title}|${r.due_date}`));
