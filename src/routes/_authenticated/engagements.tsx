@@ -1,4 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
 import { ResourcePage } from "@/components/resource-page";
 import { fmtDate } from "@/components/ui-bits";
 
@@ -15,6 +16,11 @@ export const Route = createFileRoute("/_authenticated/engagements")({
       select="*, clients(name)"
       searchKeys={["title", "engagement_type", "financial_year", "clients.name"]}
       filters={{ key: "status", options: STATUS }}
+      rowActions={(r) => (
+        <Button asChild size="sm" variant="outline">
+          <Link to="/engagement/$id" params={{ id: r["id"] }}>Open</Link>
+        </Button>
+      )}
       fields={[
         { name: "title", label: "Title", required: true, full: true },
         { name: "client_id", label: "Client", type: "ref", ref: { table: "clients", label: "name" }, required: true },
@@ -27,7 +33,7 @@ export const Route = createFileRoute("/_authenticated/engagements")({
         { name: "notes", label: "Notes", type: "textarea" },
       ]}
       columns={[
-        { key: "title", label: "Engagement", render: (r) => <span className="font-medium">{r["title"]}</span> },
+        { key: "title", label: "Engagement", render: (r) => <Link to="/engagement/$id" params={{ id: r["id"] }} className="font-medium underline-offset-2 hover:underline">{r["title"]}</Link> },
         { key: "clients.name", label: "Client" },
         { key: "engagement_type", label: "Type" },
         { key: "financial_year", label: "FY" },
