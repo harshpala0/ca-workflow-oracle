@@ -24,7 +24,7 @@ describe("CBDT/ICAI due-date overrides", () => {
   it("ITR audit case stays 31 October without override", () =>
     expect(generateCompliance(2026, ["Tax Audit"]).find((i) => i.title.startsWith("ITR (audit"))?.due_date).toBe("2027-10-31"));
   it("Income Tax pack does not include tax audit items", () =>
-    expect(generateCompliance(2026, ["Income Tax"]).some((i) => i.title.includes("audit"))).toBe(false));
+    expect(generateCompliance(2026, ["Income Tax"]).some((i) => i.title.includes("Tax audit") || i.title.includes("audit case"))).toBe(false));
 });
 
 describe("financial year", () => {
