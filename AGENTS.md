@@ -18,3 +18,4 @@
 - Platform-owner (super_admin) operations live in `src/lib/platform.functions.ts`; each handler verifies the role first and only then loads the service-role client — cross-firm access stays server-side.
 - Audit working-paper chapters/fields are data in `src/lib/audit-sections.ts` rendered generically and stored as JSON per engagement — new checklists need no new UI code.
 - Suspended firms are blocked in the DB via `my_firm_id()` returning null — enforcement lives in RLS, not in UI checks.
+- Engagement drill-down lives at `/engagement/$id` (tasks, hours, day logs); Word booklets are built in the browser with the `docx` package in `src/lib/booklet.ts` — no server-side document generation needed.
