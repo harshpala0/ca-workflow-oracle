@@ -26,8 +26,8 @@ const kv = (label: string, value: unknown) =>
 
 const cell = (text: string, header = false) =>
   new TableCell({
-    shading: header ? { type: ShadingType.CLEAR, color: "auto", fill: NAVY } : undefined,
-    children: [new Paragraph({ children: [new TextRun({ text, bold: header, size: 18, color: header ? "FFFFFF" : undefined })] })],
+    ...(header ? { shading: { type: ShadingType.CLEAR, color: "auto", fill: NAVY } } : {}),
+    children: [new Paragraph({ children: [new TextRun({ text, bold: header, size: 18, ...(header ? { color: "FFFFFF" } : {}) })] })],
   });
 
 function table(headers: string[], rows: unknown[][]) {
