@@ -156,6 +156,50 @@ export type Database = {
           },
         ]
       }
+      compliance_due_overrides: {
+        Row: {
+          due_date: string
+          event_key: string
+          financial_year: string
+          firm_id: string
+          id: string
+          notes: string | null
+          notification_ref: string | null
+          source: string
+          updated_at: string
+        }
+        Insert: {
+          due_date: string
+          event_key: string
+          financial_year: string
+          firm_id: string
+          id?: string
+          notes?: string | null
+          notification_ref?: string | null
+          source?: string
+          updated_at?: string
+        }
+        Update: {
+          due_date?: string
+          event_key?: string
+          financial_year?: string
+          firm_id?: string
+          id?: string
+          notes?: string | null
+          notification_ref?: string | null
+          source?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "compliance_due_overrides_firm_id_fkey"
+            columns: ["firm_id"]
+            isOneToOne: false
+            referencedRelation: "firms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       compliance_items: {
         Row: {
           category: string
@@ -567,6 +611,47 @@ export type Database = {
           },
           {
             foreignKeyName: "invoices_firm_id_fkey"
+            columns: ["firm_id"]
+            isOneToOne: false
+            referencedRelation: "firms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      library_items: {
+        Row: {
+          category: string
+          created_at: string
+          created_by: string | null
+          description: string | null
+          firm_id: string
+          id: string
+          title: string
+          url: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          firm_id: string
+          id?: string
+          title: string
+          url: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          firm_id?: string
+          id?: string
+          title?: string
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "library_items_firm_id_fkey"
             columns: ["firm_id"]
             isOneToOne: false
             referencedRelation: "firms"

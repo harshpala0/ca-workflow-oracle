@@ -1,4 +1,4 @@
-import { Link, Outlet, useNavigate } from "@tanstack/react-router";
+import { KanbanSquare, FileSignature, Library, Link, Outlet, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState, type ComponentType } from "react";
 import {
@@ -19,8 +19,11 @@ const staffNav: { group: string; items: Item[] }[] = [
     { to: "/tasks", label: "Tasks", icon: ClipboardList },
     { to: "/queries", label: "Queries", icon: MessageSquareQuote },
     { to: "/audit-papers", label: "Audit working papers", icon: ScrollText },
+    { to: "/mrl", label: "Representation letters", icon: FileSignature },
+    { to: "/library", label: "Study material", icon: Library },
   ]},
   { group: "Compliance", items: [
+    { to: "/compliance-board", label: "Compliance board", icon: KanbanSquare },
     { to: "/compliance", label: "Statute calendar", icon: CalendarClock },
     { to: "/reminders", label: "Reminders", icon: Bell },
     { to: "/documents", label: "Document register", icon: BookOpen },
