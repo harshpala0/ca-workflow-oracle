@@ -16,7 +16,7 @@ export interface MrlData {
   indirectTax: string;
   letterDate: string;
   natureOfBusiness: string;
-  opted: string;
+  opted115: string;
   pan: string;
   panName: string;
   partners: string;
