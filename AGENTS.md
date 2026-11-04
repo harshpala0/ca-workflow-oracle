@@ -19,3 +19,4 @@
 - Audit working-paper chapters/fields are data in `src/lib/audit-sections.ts` rendered generically and stored as JSON per engagement — new checklists need no new UI code.
 - Suspended firms are blocked in the DB via `my_firm_id()` returning null — enforcement lives in RLS, not in UI checks.
 - Engagement drill-down lives at `/engagement/$id` (tasks, hours, day logs); Word booklets are built in the browser with the `docx` package in `src/lib/booklet.ts` — no server-side document generation needed.
+- Statutory due-date extensions (CBDT/ICAI/MCA) are per-firm rows keyed by FY + event key and passed into `generateCompliance` as overrides; MRL letter text lives in `src/lib/mrl-letters.ts` and curated library links in `src/lib/library-catalog.ts` — content stays data, pages stay generic.

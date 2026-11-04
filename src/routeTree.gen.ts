@@ -16,12 +16,15 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as AuthenticatedAuditPapersRouteImport } from './routes/_authenticated/audit-papers'
 import { Route as AuthenticatedClientsRouteImport } from './routes/_authenticated/clients'
 import { Route as AuthenticatedComplianceRouteImport } from './routes/_authenticated/compliance'
+import { Route as AuthenticatedComplianceBoardRouteImport } from './routes/_authenticated/compliance-board'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedDocumentsRouteImport } from './routes/_authenticated/documents'
 import { Route as AuthenticatedEngagementsRouteImport } from './routes/_authenticated/engagements'
 import { Route as AuthenticatedInsightsRouteImport } from './routes/_authenticated/insights'
 import { Route as AuthenticatedInvoicesRouteImport } from './routes/_authenticated/invoices'
+import { Route as AuthenticatedLibraryRouteImport } from './routes/_authenticated/library'
 import { Route as AuthenticatedMessagesRouteImport } from './routes/_authenticated/messages'
+import { Route as AuthenticatedMrlRouteImport } from './routes/_authenticated/mrl'
 import { Route as AuthenticatedPlatformRouteImport } from './routes/_authenticated/platform'
 import { Route as AuthenticatedPortalRouteImport } from './routes/_authenticated/portal'
 import { Route as AuthenticatedPortalInboxRouteImport } from './routes/_authenticated/portal-inbox'
@@ -68,6 +71,12 @@ const AuthenticatedComplianceRoute = AuthenticatedComplianceRouteImport.update({
   path: '/compliance',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedComplianceBoardRoute =
+  AuthenticatedComplianceBoardRouteImport.update({
+    id: '/compliance-board',
+    path: '/compliance-board',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -94,9 +103,19 @@ const AuthenticatedInvoicesRoute = AuthenticatedInvoicesRouteImport.update({
   path: '/invoices',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedLibraryRoute = AuthenticatedLibraryRouteImport.update({
+  id: '/library',
+  path: '/library',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedMessagesRoute = AuthenticatedMessagesRouteImport.update({
   id: '/messages',
   path: '/messages',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedMrlRoute = AuthenticatedMrlRouteImport.update({
+  id: '/mrl',
+  path: '/mrl',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedPlatformRoute = AuthenticatedPlatformRouteImport.update({
@@ -160,12 +179,15 @@ export interface FileRoutesByFullPath {
   '/audit-papers': typeof AuthenticatedAuditPapersRoute
   '/clients': typeof AuthenticatedClientsRoute
   '/compliance': typeof AuthenticatedComplianceRoute
+  '/compliance-board': typeof AuthenticatedComplianceBoardRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/documents': typeof AuthenticatedDocumentsRoute
   '/engagements': typeof AuthenticatedEngagementsRoute
   '/insights': typeof AuthenticatedInsightsRoute
   '/invoices': typeof AuthenticatedInvoicesRoute
+  '/library': typeof AuthenticatedLibraryRoute
   '/messages': typeof AuthenticatedMessagesRoute
+  '/mrl': typeof AuthenticatedMrlRoute
   '/platform': typeof AuthenticatedPlatformRoute
   '/portal': typeof AuthenticatedPortalRoute
   '/portal-inbox': typeof AuthenticatedPortalInboxRoute
@@ -184,12 +206,15 @@ export interface FileRoutesByTo {
   '/audit-papers': typeof AuthenticatedAuditPapersRoute
   '/clients': typeof AuthenticatedClientsRoute
   '/compliance': typeof AuthenticatedComplianceRoute
+  '/compliance-board': typeof AuthenticatedComplianceBoardRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/documents': typeof AuthenticatedDocumentsRoute
   '/engagements': typeof AuthenticatedEngagementsRoute
   '/insights': typeof AuthenticatedInsightsRoute
   '/invoices': typeof AuthenticatedInvoicesRoute
+  '/library': typeof AuthenticatedLibraryRoute
   '/messages': typeof AuthenticatedMessagesRoute
+  '/mrl': typeof AuthenticatedMrlRoute
   '/platform': typeof AuthenticatedPlatformRoute
   '/portal': typeof AuthenticatedPortalRoute
   '/portal-inbox': typeof AuthenticatedPortalInboxRoute
@@ -210,12 +235,15 @@ export interface FileRoutesById {
   '/_authenticated/audit-papers': typeof AuthenticatedAuditPapersRoute
   '/_authenticated/clients': typeof AuthenticatedClientsRoute
   '/_authenticated/compliance': typeof AuthenticatedComplianceRoute
+  '/_authenticated/compliance-board': typeof AuthenticatedComplianceBoardRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/documents': typeof AuthenticatedDocumentsRoute
   '/_authenticated/engagements': typeof AuthenticatedEngagementsRoute
   '/_authenticated/insights': typeof AuthenticatedInsightsRoute
   '/_authenticated/invoices': typeof AuthenticatedInvoicesRoute
+  '/_authenticated/library': typeof AuthenticatedLibraryRoute
   '/_authenticated/messages': typeof AuthenticatedMessagesRoute
+  '/_authenticated/mrl': typeof AuthenticatedMrlRoute
   '/_authenticated/platform': typeof AuthenticatedPlatformRoute
   '/_authenticated/portal': typeof AuthenticatedPortalRoute
   '/_authenticated/portal-inbox': typeof AuthenticatedPortalInboxRoute
@@ -236,12 +264,15 @@ export interface FileRouteTypes {
     | '/audit-papers'
     | '/clients'
     | '/compliance'
+    | '/compliance-board'
     | '/dashboard'
     | '/documents'
     | '/engagements'
     | '/insights'
     | '/invoices'
+    | '/library'
     | '/messages'
+    | '/mrl'
     | '/platform'
     | '/portal'
     | '/portal-inbox'
@@ -260,12 +291,15 @@ export interface FileRouteTypes {
     | '/audit-papers'
     | '/clients'
     | '/compliance'
+    | '/compliance-board'
     | '/dashboard'
     | '/documents'
     | '/engagements'
     | '/insights'
     | '/invoices'
+    | '/library'
     | '/messages'
+    | '/mrl'
     | '/platform'
     | '/portal'
     | '/portal-inbox'
@@ -285,12 +319,15 @@ export interface FileRouteTypes {
     | '/_authenticated/audit-papers'
     | '/_authenticated/clients'
     | '/_authenticated/compliance'
+    | '/_authenticated/compliance-board'
     | '/_authenticated/dashboard'
     | '/_authenticated/documents'
     | '/_authenticated/engagements'
     | '/_authenticated/insights'
     | '/_authenticated/invoices'
+    | '/_authenticated/library'
     | '/_authenticated/messages'
+    | '/_authenticated/mrl'
     | '/_authenticated/platform'
     | '/_authenticated/portal'
     | '/_authenticated/portal-inbox'
@@ -361,6 +398,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedComplianceRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/compliance-board': {
+      id: '/_authenticated/compliance-board'
+      path: '/compliance-board'
+      fullPath: '/compliance-board'
+      preLoaderRoute: typeof AuthenticatedComplianceBoardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
       path: '/dashboard'
@@ -396,11 +440,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedInvoicesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/library': {
+      id: '/_authenticated/library'
+      path: '/library'
+      fullPath: '/library'
+      preLoaderRoute: typeof AuthenticatedLibraryRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/messages': {
       id: '/_authenticated/messages'
       path: '/messages'
       fullPath: '/messages'
       preLoaderRoute: typeof AuthenticatedMessagesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/mrl': {
+      id: '/_authenticated/mrl'
+      path: '/mrl'
+      fullPath: '/mrl'
+      preLoaderRoute: typeof AuthenticatedMrlRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/platform': {
@@ -480,12 +538,15 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAuditPapersRoute: typeof AuthenticatedAuditPapersRoute
   AuthenticatedClientsRoute: typeof AuthenticatedClientsRoute
   AuthenticatedComplianceRoute: typeof AuthenticatedComplianceRoute
+  AuthenticatedComplianceBoardRoute: typeof AuthenticatedComplianceBoardRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedDocumentsRoute: typeof AuthenticatedDocumentsRoute
   AuthenticatedEngagementsRoute: typeof AuthenticatedEngagementsRoute
   AuthenticatedInsightsRoute: typeof AuthenticatedInsightsRoute
   AuthenticatedInvoicesRoute: typeof AuthenticatedInvoicesRoute
+  AuthenticatedLibraryRoute: typeof AuthenticatedLibraryRoute
   AuthenticatedMessagesRoute: typeof AuthenticatedMessagesRoute
+  AuthenticatedMrlRoute: typeof AuthenticatedMrlRoute
   AuthenticatedPlatformRoute: typeof AuthenticatedPlatformRoute
   AuthenticatedPortalRoute: typeof AuthenticatedPortalRoute
   AuthenticatedPortalInboxRoute: typeof AuthenticatedPortalInboxRoute
@@ -502,12 +563,15 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAuditPapersRoute: AuthenticatedAuditPapersRoute,
   AuthenticatedClientsRoute: AuthenticatedClientsRoute,
   AuthenticatedComplianceRoute: AuthenticatedComplianceRoute,
+  AuthenticatedComplianceBoardRoute: AuthenticatedComplianceBoardRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedDocumentsRoute: AuthenticatedDocumentsRoute,
   AuthenticatedEngagementsRoute: AuthenticatedEngagementsRoute,
   AuthenticatedInsightsRoute: AuthenticatedInsightsRoute,
   AuthenticatedInvoicesRoute: AuthenticatedInvoicesRoute,
+  AuthenticatedLibraryRoute: AuthenticatedLibraryRoute,
   AuthenticatedMessagesRoute: AuthenticatedMessagesRoute,
+  AuthenticatedMrlRoute: AuthenticatedMrlRoute,
   AuthenticatedPlatformRoute: AuthenticatedPlatformRoute,
   AuthenticatedPortalRoute: AuthenticatedPortalRoute,
   AuthenticatedPortalInboxRoute: AuthenticatedPortalInboxRoute,
