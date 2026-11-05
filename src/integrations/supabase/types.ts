@@ -97,6 +97,44 @@ export type Database = {
           },
         ]
       }
+      audit_programs: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          engagement_type: string
+          firm_id: string
+          id: string
+          items: Json
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          engagement_type?: string
+          firm_id: string
+          id?: string
+          items?: Json
+          name: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          engagement_type?: string
+          firm_id?: string
+          id?: string
+          items?: Json
+          name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "audit_programs_firm_id_fkey"
+            columns: ["firm_id"]
+            isOneToOne: false
+            referencedRelation: "firms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       clients: {
         Row: {
           address: string | null
@@ -865,8 +903,10 @@ export type Database = {
           firm_id: string
           id: string
           priority: string
+          program_item_key: string | null
           status: string
           title: string
+          working_paper_ref: string | null
         }
         Insert: {
           area?: string | null
@@ -881,8 +921,10 @@ export type Database = {
           firm_id: string
           id?: string
           priority?: string
+          program_item_key?: string | null
           status?: string
           title: string
+          working_paper_ref?: string | null
         }
         Update: {
           area?: string | null
@@ -897,8 +939,10 @@ export type Database = {
           firm_id?: string
           id?: string
           priority?: string
+          program_item_key?: string | null
           status?: string
           title?: string
+          working_paper_ref?: string | null
         }
         Relationships: [
           {
@@ -1009,12 +1053,24 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      apply_audit_program: {
+        Args: {
+          _engagement_ids: string[]
+          _item_indexes: number[]
+          _program_id: string
+        }
+        Returns: Json
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
           _user_id: string
         }
         Returns: boolean
+      }
+      import_clients_engagements: {
+        Args: { _fy: string; _rows: Json }
+        Returns: Json
       }
       is_firm_manager: { Args: never; Returns: boolean }
       is_staff: { Args: never; Returns: boolean }
