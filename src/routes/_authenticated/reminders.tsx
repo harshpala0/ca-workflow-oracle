@@ -7,7 +7,13 @@ import { ageBucket, inr, outstanding } from "@/lib/compliance";
 import { PageHeader, StatusBadge, fmtDate } from "@/components/ui-bits";
 
 export const Route = createFileRoute("/_authenticated/reminders")({
-  head: () => ({ meta: [{ title: "Reminders — CA FirmHub" }] }),
+  head: () => ({ meta: [{ title: "Reminders — CA FirmHub" },
+      { name: "description", content: "Review compliance, document and payment follow-ups." },
+      { property: "og:title", content: "Reminders \u2014 CA FirmHub" },
+      { property: "og:description", content: "Review compliance, document and payment follow-ups." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ] }),
   component: Reminders,
 });
 

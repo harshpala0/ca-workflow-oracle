@@ -6,7 +6,13 @@ import { inr, outstanding } from "@/lib/compliance";
 import { PageHeader, Stat, StatusBadge, fmtDate } from "@/components/ui-bits";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
-  head: () => ({ meta: [{ title: "Dashboard — CA FirmHub" }] }),
+  head: () => ({ meta: [{ title: "Dashboard — CA FirmHub" },
+      { name: "description", content: "A firm-wide snapshot of clients, active engagements and upcoming work." },
+      { property: "og:title", content: "Dashboard \u2014 CA FirmHub" },
+      { property: "og:description", content: "A firm-wide snapshot of clients, active engagements and upcoming work." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ] }),
   component: Dashboard,
 });
 

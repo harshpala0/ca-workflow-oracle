@@ -6,7 +6,13 @@ import { inr } from "@/lib/compliance";
 import { PageHeader, Stat } from "@/components/ui-bits";
 
 export const Route = createFileRoute("/_authenticated/insights")({
-  head: () => ({ meta: [{ title: "Insight reports — CA FirmHub" }] }),
+  head: () => ({ meta: [{ title: "Insight reports — CA FirmHub" },
+      { name: "description", content: "Review practice reports and operational trends across firm work." },
+      { property: "og:title", content: "Insight reports \u2014 CA FirmHub" },
+      { property: "og:description", content: "Review practice reports and operational trends across firm work." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ] }),
   component: Insights,
 });
 

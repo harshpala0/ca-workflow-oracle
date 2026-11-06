@@ -9,6 +9,8 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Client master, engagements, statutory compliance calendar, GST invoicing and a secure client portal for CA firms and practitioners." },
       { property: "og:title", content: "CA FirmHub — Run your CA practice in one place" },
       { property: "og:description", content: "Clients, compliance deadlines, billing and client documents for Indian CA firms." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Landing,

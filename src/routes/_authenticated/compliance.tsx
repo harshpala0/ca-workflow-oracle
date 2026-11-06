@@ -14,7 +14,13 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
 export const Route = createFileRoute("/_authenticated/compliance")({
-  head: () => ({ meta: [{ title: "Statute calendar — CA FirmHub" }] }),
+  head: () => ({ meta: [{ title: "Statute calendar — CA FirmHub" },
+      { name: "description", content: "Review client-specific statutory deadlines and compliance items." },
+      { property: "og:title", content: "Statute calendar \u2014 CA FirmHub" },
+      { property: "og:description", content: "Review client-specific statutory deadlines and compliance items." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ] }),
   component: Compliance,
 });
 

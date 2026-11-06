@@ -70,8 +70,8 @@ export async function buildBooklet(d: BookletInput): Promise<Blob> {
   for (const [area, ts] of areas) {
     children.push(h(area, HeadingLevel.HEADING_2));
     children.push(table(
-      ["Task", "Assigned to", "Status", "Priority", "Due", "Est. hrs", "Logged hrs"],
-      ts.map((t) => [t["title"], t["profiles"]?.["full_name"], t["status"], t["priority"], t["due_date"], t["estimated_hours"], hoursByTask.get(t["id"]) ?? 0]),
+      ["Task", "WP ref", "Assigned to", "Status", "Priority", "Due", "Est. hrs", "Logged hrs"],
+      ts.map((t) => [t["title"], t["working_paper_ref"], t["profiles"]?.["full_name"], t["status"], t["priority"], t["due_date"], t["estimated_hours"], hoursByTask.get(t["id"]) ?? 0]),
     ));
   }
   children.push(

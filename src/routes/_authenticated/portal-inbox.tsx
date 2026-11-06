@@ -10,7 +10,13 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 export const Route = createFileRoute("/_authenticated/portal-inbox")({
-  head: () => ({ meta: [{ title: "Client requests — CA FirmHub" }] }),
+  head: () => ({ meta: [{ title: "Client requests — CA FirmHub" },
+      { name: "description", content: "Review client document requests and submissions." },
+      { property: "og:title", content: "Client requests \u2014 CA FirmHub" },
+      { property: "og:description", content: "Review client document requests and submissions." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ] }),
   component: Inbox,
 });
 

@@ -1,12 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ResourcePage } from "@/components/resource-page";
+import { ClientImport } from "@/components/client-import";
 
 export const Route = createFileRoute("/_authenticated/clients")({
-  head: () => ({ meta: [{ title: "Clients — CA FirmHub" }] }),
+  head: () => ({ meta: [{ title: "Clients — CA FirmHub" }, { name: "description", content: "Client records and combined client and engagement imports." }, { property: "og:title", content: "Clients — CA FirmHub" }, { property: "og:description", content: "Client records and combined client and engagement imports." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }),
   component: () => (
     <ResourcePage
       table="clients"
       title="Clients"
+      headerExtra={<ClientImport />}
       description="Client master — PAN, GSTIN and contacts."
       orderBy="name"
       ascending

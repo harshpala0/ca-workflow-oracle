@@ -15,7 +15,13 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_authenticated/audit-papers")({
-  head: () => ({ meta: [{ title: "Audit working papers — CA FirmHub" }] }),
+  head: () => ({ meta: [{ title: "Audit working papers — CA FirmHub" },
+      { name: "description", content: "Organize audit working papers for firm engagements." },
+      { property: "og:title", content: "Audit working papers \u2014 CA FirmHub" },
+      { property: "og:description", content: "Organize audit working papers for firm engagements." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ] }),
   component: AuditPapers,
 });
 

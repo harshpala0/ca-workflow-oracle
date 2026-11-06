@@ -11,7 +11,13 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
 export const Route = createFileRoute("/_authenticated/portal")({
-  head: () => ({ meta: [{ title: "My portal — CA FirmHub" }] }),
+  head: () => ({ meta: [{ title: "My portal — CA FirmHub" },
+      { name: "description", content: "Access your client documents, requests and engagement updates." },
+      { property: "og:title", content: "My portal \u2014 CA FirmHub" },
+      { property: "og:description", content: "Access your client documents, requests and engagement updates." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ] }),
   component: Portal,
 });
 

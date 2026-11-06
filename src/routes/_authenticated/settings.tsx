@@ -12,7 +12,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export const Route = createFileRoute("/_authenticated/settings")({
-  head: () => ({ meta: [{ title: "Team & settings — CA FirmHub" }] }),
+  head: () => ({ meta: [{ title: "Team & settings — CA FirmHub" },
+      { name: "description", content: "Manage firm members, roles and workspace settings." },
+      { property: "og:title", content: "Team & settings \u2014 CA FirmHub" },
+      { property: "og:description", content: "Manage firm members, roles and workspace settings." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ] }),
   component: Settings,
 });
 

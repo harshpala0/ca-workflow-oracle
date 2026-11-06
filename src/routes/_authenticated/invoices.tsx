@@ -4,7 +4,13 @@ import { fmtDate } from "@/components/ui-bits";
 import { useMe } from "@/lib/session";
 
 export const Route = createFileRoute("/_authenticated/invoices")({
-  head: () => ({ meta: [{ title: "Invoices — CA FirmHub" }] }),
+  head: () => ({ meta: [{ title: "Invoices — CA FirmHub" },
+      { name: "description", content: "Manage client invoices, GST, payments and balances." },
+      { property: "og:title", content: "Invoices \u2014 CA FirmHub" },
+      { property: "og:description", content: "Manage client invoices, GST, payments and balances." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ] }),
   component: Invoices,
 });
 

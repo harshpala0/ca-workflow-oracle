@@ -18,6 +18,10 @@ export const Route = createFileRoute("/_authenticated/mrl")({
     meta: [
       { title: "Representation letters — CA FirmHub" },
       { name: "description", content: "Draft management representation letters for tax audit (Form 3CD) and statutory audit (SA 580, CARO, IFC)." },
+      { property: "og:title", content: "Representation letters \u2014 CA FirmHub" },
+      { property: "og:description", content: "Draft management representation letters for tax audit (Form 3CD) and statutory audit (SA 580, CARO, IFC)." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Mrl,

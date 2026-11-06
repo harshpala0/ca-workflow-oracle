@@ -20,3 +20,5 @@
 - Suspended firms are blocked in the DB via `my_firm_id()` returning null — enforcement lives in RLS, not in UI checks.
 - Engagement drill-down lives at `/engagement/$id` (tasks, hours, day logs); Word booklets are built in the browser with the `docx` package in `src/lib/booklet.ts` — no server-side document generation needed.
 - Statutory due-date extensions (CBDT/ICAI/MCA) are per-firm rows keyed by FY + event key and passed into `generateCompliance` as overrides; MRL letter text lives in `src/lib/mrl-letters.ts` and curated library links in `src/lib/library-catalog.ts` — content stays data, pages stay generic.
+- Combined imports and program application use authenticated SECURITY INVOKER database functions with firm-scoped locks — multi-row writes remain atomic, tenant-isolated and duplicate-safe.
+- Audit programs store reusable procedure data per firm; checked-in starter procedures derive from the working-paper checklist rather than claiming to reproduce private cafh master templates.

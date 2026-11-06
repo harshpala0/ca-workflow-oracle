@@ -2,16 +2,19 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { ResourcePage } from "@/components/resource-page";
 import { fmtDate } from "@/components/ui-bits";
+import { ClientImport } from "@/components/client-import";
+import { AuditProgramImport } from "@/components/audit-program-import";
 
 const TYPES = ["Statutory Audit", "Tax Audit", "Internal Audit", "GST Audit", "Income Tax Return", "GST Compliance", "ROC Compliance", "Bookkeeping", "Certification", "Advisory"];
 const STATUS = ["Active", "On Hold", "Completed", "Closed"];
 
 export const Route = createFileRoute("/_authenticated/engagements")({
-  head: () => ({ meta: [{ title: "Engagements — CA FirmHub" }] }),
+  head: () => ({ meta: [{ title: "Engagements — CA FirmHub" }, { name: "description", content: "Client engagements, bulk imports and reusable audit task programs." }, { property: "og:title", content: "Engagements — CA FirmHub" }, { property: "og:description", content: "Client engagements, bulk imports and reusable audit task programs." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }),
   component: () => (
     <ResourcePage
       table="engagements"
       title="Engagements"
+      headerExtra={<><ClientImport /><AuditProgramImport /></>}
       description="Assignments per client and financial year."
       select="*, clients(name)"
       searchKeys={["title", "engagement_type", "financial_year", "clients.name"]}

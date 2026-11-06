@@ -16,6 +16,10 @@ export const Route = createFileRoute("/_authenticated/compliance-board")({
     meta: [
       { title: "Compliance board — CA FirmHub" },
       { name: "description", content: "Overdue, this-week and this-month filings with prior/current FY split and CBDT/ICAI due-date extensions." },
+      { property: "og:title", content: "Compliance board \u2014 CA FirmHub" },
+      { property: "og:description", content: "Overdue, this-week and this-month filings with prior/current FY split and CBDT/ICAI due-date extensions." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Board,

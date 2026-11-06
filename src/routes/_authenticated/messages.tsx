@@ -14,7 +14,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 
 export const Route = createFileRoute("/_authenticated/messages")({
-  head: () => ({ meta: [{ title: "Messages & digest — CA FirmHub" }] }),
+  head: () => ({ meta: [{ title: "Messages & digest — CA FirmHub" },
+      { name: "description", content: "Review firm communications and daily digests." },
+      { property: "og:title", content: "Messages & digest \u2014 CA FirmHub" },
+      { property: "og:description", content: "Review firm communications and daily digests." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ] }),
   component: Messages,
 });
 

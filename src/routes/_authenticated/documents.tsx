@@ -5,7 +5,13 @@ import { fmtDate } from "@/components/ui-bits";
 const STATUS = ["Received", "Acknowledged", "Dispatched", "Returned", "Pending"];
 
 export const Route = createFileRoute("/_authenticated/documents")({
-  head: () => ({ meta: [{ title: "Document register — CA FirmHub" }] }),
+  head: () => ({ meta: [{ title: "Document register — CA FirmHub" },
+      { name: "description", content: "Track inward and outward client documents and processing status." },
+      { property: "og:title", content: "Document register \u2014 CA FirmHub" },
+      { property: "og:description", content: "Track inward and outward client documents and processing status." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ] }),
   component: () => (
     <ResourcePage
       table="doc_register"

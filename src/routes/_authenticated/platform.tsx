@@ -13,7 +13,13 @@ import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 export const Route = createFileRoute("/_authenticated/platform")({
-  head: () => ({ meta: [{ title: "Platform control — CA FirmHub" }] }),
+  head: () => ({ meta: [{ title: "Platform control — CA FirmHub" },
+      { name: "description", content: "Manage platform operations and firm administration." },
+      { property: "og:title", content: "Platform control \u2014 CA FirmHub" },
+      { property: "og:description", content: "Manage platform operations and firm administration." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ] }),
   component: Platform,
 });
 

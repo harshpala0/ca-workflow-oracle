@@ -5,7 +5,13 @@ import { fmtDate } from "@/components/ui-bits";
 const STATUS = ["Pending", "In Progress", "Completed", "Under Review", "Approved", "Rejected"];
 
 export const Route = createFileRoute("/_authenticated/tasks")({
-  head: () => ({ meta: [{ title: "Tasks — CA FirmHub" }] }),
+  head: () => ({ meta: [{ title: "Tasks — CA FirmHub" },
+      { name: "description", content: "Assign and track firm tasks, ownership, due dates and status." },
+      { property: "og:title", content: "Tasks \u2014 CA FirmHub" },
+      { property: "og:description", content: "Assign and track firm tasks, ownership, due dates and status." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ] }),
   component: () => (
     <ResourcePage
       table="tasks"

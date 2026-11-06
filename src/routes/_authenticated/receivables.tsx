@@ -6,7 +6,13 @@ import { PageHeader, Stat, fmtDate } from "@/components/ui-bits";
 import { useMe } from "@/lib/session";
 
 export const Route = createFileRoute("/_authenticated/receivables")({
-  head: () => ({ meta: [{ title: "Receivables — CA FirmHub" }] }),
+  head: () => ({ meta: [{ title: "Receivables — CA FirmHub" },
+      { name: "description", content: "Monitor outstanding client balances and ageing." },
+      { property: "og:title", content: "Receivables \u2014 CA FirmHub" },
+      { property: "og:description", content: "Monitor outstanding client balances and ageing." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ] }),
   component: Receivables,
 });
 

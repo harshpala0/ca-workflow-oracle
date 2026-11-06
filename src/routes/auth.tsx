@@ -14,6 +14,8 @@ export const Route = createFileRoute("/auth")({
       { name: "description", content: "Sign in to your CA FirmHub workspace or create a new firm." },
       { property: "og:title", content: "Sign in — CA FirmHub" },
       { property: "og:description", content: "Access your firm's clients, compliance and billing." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: AuthPage,

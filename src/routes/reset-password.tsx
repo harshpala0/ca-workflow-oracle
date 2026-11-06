@@ -12,6 +12,8 @@ export const Route = createFileRoute("/reset-password")({
       { name: "description", content: "Choose a new password for your CA FirmHub account." },
       { property: "og:title", content: "Set a new password — CA FirmHub" },
       { property: "og:description", content: "Choose a new password for your CA FirmHub account." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Reset,

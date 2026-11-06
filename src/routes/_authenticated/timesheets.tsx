@@ -4,7 +4,13 @@ import { fmtDate } from "@/components/ui-bits";
 import { useMe } from "@/lib/session";
 
 export const Route = createFileRoute("/_authenticated/timesheets")({
-  head: () => ({ meta: [{ title: "Timesheets — CA FirmHub" }] }),
+  head: () => ({ meta: [{ title: "Timesheets — CA FirmHub" },
+      { name: "description", content: "Record and review staff time logged against firm work." },
+      { property: "og:title", content: "Timesheets \u2014 CA FirmHub" },
+      { property: "og:description", content: "Record and review staff time logged against firm work." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ] }),
   component: Timesheets,
 });
 

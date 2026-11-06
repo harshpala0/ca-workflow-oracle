@@ -3,7 +3,13 @@ import { ResourcePage } from "@/components/resource-page";
 import { fmtDate } from "@/components/ui-bits";
 
 export const Route = createFileRoute("/_authenticated/queries")({
-  head: () => ({ meta: [{ title: "Query register — CA FirmHub" }] }),
+  head: () => ({ meta: [{ title: "Query register — CA FirmHub" },
+      { name: "description", content: "Manage engagement queries and client responses." },
+      { property: "og:title", content: "Query register \u2014 CA FirmHub" },
+      { property: "og:description", content: "Manage engagement queries and client responses." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ] }),
   component: () => (
     <ResourcePage
       table="queries"

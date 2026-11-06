@@ -15,6 +15,10 @@ export const Route = createFileRoute("/_authenticated/library")({
     meta: [
       { title: "Study material — CA FirmHub" },
       { name: "description", content: "Official Income Tax, GST, MCA, ICAI and RBI sources plus your firm's own study material links." },
+      { property: "og:title", content: "Study material \u2014 CA FirmHub" },
+      { property: "og:description", content: "Official Income Tax, GST, MCA, ICAI and RBI sources plus your firm's own study material links." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: LibraryPage,

@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { PageHeader, StatusBadge, fmtDate } from "@/components/ui-bits";
 import type { Json } from "@/integrations/supabase/types";
+import { AuditProgramImport } from "@/components/audit-program-import";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Row = Record<string, any>;
@@ -21,7 +22,7 @@ const TASK_STATUS = ["Pending", "In Progress", "Completed", "Under Review", "App
 const sel = "h-9 w-full rounded-md border border-input bg-card px-2 text-sm";
 
 export const Route = createFileRoute("/_authenticated/engagement/$id")({
-  head: () => ({ meta: [{ title: "Engagement — CA FirmHub" }, { name: "description", content: "Engagement tasks, day logs and booklet." }] }),
+  head: () => ({ meta: [{ title: "Engagement details — CA FirmHub" }, { name: "description", content: "Engagement audit procedures, tasks, day logs and Word booklet." }, { property: "og:title", content: "Engagement details — CA FirmHub" }, { property: "og:description", content: "Engagement audit procedures, tasks, day logs and Word booklet." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }),
   component: EngagementPage,
 });
 
@@ -176,7 +177,7 @@ function TasksSection({ engagementId, tasks, hours, staff, onChange }: {
 
   return (
     <section>
-      <h2 className="mb-3 font-display text-xl">Tasks</h2>
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-2"><h2 className="font-display text-xl">Tasks</h2><AuditProgramImport engagementId={engagementId} /></div>
       <form
         className="mb-4 grid gap-2 rounded-lg border bg-card p-3 shadow-card sm:grid-cols-6"
         onSubmit={(ev) => { ev.preventDefault(); add.mutate(); }}
@@ -200,7 +201,7 @@ function TasksSection({ engagementId, tasks, hours, staff, onChange }: {
             {tasks.length === 0 && <tr><td colSpan={7} className="px-3 py-8 text-center text-muted-foreground">No tasks for this engagement yet.</td></tr>}
             {tasks.map((t) => (
               <tr key={t["id"]} className="border-t">
-                <td className="px-3 py-2 font-medium">{t["title"]}</td>
+                <td className="px-3 py-2 font-medium">{t["title"]}{t["working_paper_ref"] && <span className="block text-xs font-normal text-muted-foreground">Ref: {t["working_paper_ref"]}</span>}</td>
                 <td className="px-3 py-2">{t["area"] ?? "—"}</td>
                 <td className="px-3 py-2">{t["profiles"]?.["full_name"] ?? "—"}</td>
                 <td className="px-3 py-2">{fmtDate(t["due_date"])}</td>
