@@ -17,6 +17,13 @@ export const importClients = createServerFn({ method: "POST" }).middleware([requ
 export const saveAuditProgram = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth]).inputValidator((input: unknown) => programSchema.parse(input)).handler(async ({ data, context }) => {
   const { data: firm, error: firmError } = await context.supabase.rpc("my_firm_id");
   if (firmError || !firm) throw new Error("Active firm required");
+  const { data: existing, error: lookupError } = await context.supabase.from("audit_programs").select("id,items").eq("firm_id", firm).eq("name", data.name).eq("engagement_type", data.engagement_type);
+  if (lookupError) throw new Error(lookupError.message);
+  const same = existing?.find(p => {
+    const parsed = programSchema.shape.items.safeParse(p.items);
+    return parsed.success && JSON.stringify(parsed.data) === JSON.stringify(data.items);
+  });
+  if (same) return { id: same.id };
   const { data: result, error } = await context.supabase.from("audit_programs").insert({ ...data, items: data.items as Json, firm_id: firm, created_by: context.userId }).select("id").single();
   if (error) throw new Error(error.message);
   return result;
