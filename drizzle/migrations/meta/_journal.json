@@ -57,6 +57,13 @@
       "when": 1793856138775,
       "tag": "0007_bulk_import_audit_programs",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1793934858740,
+      "tag": "0008_repair_missing_account_profiles",
+      "breakpoints": true
     }
   ]
 }
