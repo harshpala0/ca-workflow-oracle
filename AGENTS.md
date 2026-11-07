@@ -22,3 +22,4 @@
 - Statutory due-date extensions (CBDT/ICAI/MCA) are per-firm rows keyed by FY + event key and passed into `generateCompliance` as overrides; MRL letter text lives in `src/lib/mrl-letters.ts` and curated library links in `src/lib/library-catalog.ts` — content stays data, pages stay generic.
 - Combined imports and program application use authenticated SECURITY INVOKER database functions with firm-scoped locks — multi-row writes remain atomic, tenant-isolated and duplicate-safe.
 - Audit programs store reusable procedure data per firm; checked-in starter procedures derive from the working-paper checklist rather than claiming to reproduce private cafh master templates.
+- Session loading invokes idempotent caller-only profile recovery before reads; trusted invitation metadata restores membership, while independent users get a separate firm, never access to an existing tenant.

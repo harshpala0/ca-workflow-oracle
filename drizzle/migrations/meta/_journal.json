@@ -64,6 +64,13 @@
       "when": 1793934858740,
       "tag": "0008_repair_missing_account_profiles",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1794046134497,
+      "tag": "0009_recover_orphaned_firm_admin",
+      "breakpoints": true
     }
   ]
 }

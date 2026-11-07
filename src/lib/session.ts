@@ -22,6 +22,8 @@ export const meQuery = queryOptions({
   queryFn: async (): Promise<Me> => {
     const { data: u } = await supabase.auth.getUser();
     if (!u.user) throw new Error("Not signed in");
+    const { error: setupError } = await supabase.rpc("ensure_my_profile");
+    if (setupError) throw new Error(setupError.message);
     const [{ data: profile, error }, { data: roles }] = await Promise.all([
       supabase.from("profiles").select("*, firms(name)").eq("id", u.user.id).single(),
       supabase.from("user_roles").select("role").eq("user_id", u.user.id),
@@ -32,7 +34,7 @@ export const meQuery = queryOptions({
       id: profile.id,
       email: profile.email,
       full_name: profile.full_name || profile.email || "User",
-      firm_id: profile.firm_id!,
+      firm_id: profile.firm_id ?? "",
       firm_name: (profile as { firms?: { name: string } | null }).firms?.name ?? "Firm",
       client_id: profile.client_id,
       roles: r,
